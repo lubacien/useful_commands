@@ -71,6 +71,7 @@ awk '$1=$1' FS= OFS=" " $yourfile
 # Match 2 files based on a column
 # This command will print the full lines of $file_where_to_look_in
 # if the first field of $what_you_are_looking_for and $file_where_to_look_in match
+#NR is 
 awk 'NR==FNR{a[$1]; next}$1 in a{print $0}' $what_you_are_looking_for $file_where_to_look_in
 
 # "Transpose" a file (convert row to column and vice versa)
@@ -185,6 +186,10 @@ docker system prune --volumes
 
 # Other various tricks
 ```bash
+
+#compare 2 files. column 1 is files unique to 1, 2 is for 2nd and 3rd is the files that appear in both. - is to hidethe specific column.
+comm -23 <(sort a.txt) <(sort b.txt)
+
 # Check if directory is empty or not
 if [ "$(ls -A /path/to/dir)" ]; then echo "Not Empty"; else echo "Empty"; fi
 
