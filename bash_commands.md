@@ -51,6 +51,9 @@ sed 's/./& /g' $yourfile
 
 # The awk tricks
 ```bash
+(almost) change language model to upper case, (but actually still need to change 2-grams and 3-grams)
+cat LM.arpa | awk 'NR<=11{print $0; next}NR>11{print toupper($0)}' > LM_UC.arpa
+
 # Sum the number of one column (here the first one) in a file
 awk '{ sum+=$1} END {print sum}' $yourfile
 
