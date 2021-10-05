@@ -51,7 +51,7 @@ sed 's/./& /g' $yourfile
 
 # The awk tricks
 
-this will change a text file into a spk2utt file in kaldi:
+this will change a text file into a spk2utt file in kaldi: (but remove the first line after)
 ```bash
 gawk 'BEGIN{split($1,a,"_"); spk = a[1]; prev= a[1]} {split($1,b,"_"); if (b[1] != spk) {printf prev " "; for (i in arr) {printf i " "}; print " "; delete arr; spk= b[1]; } arr[$1];prev=b[1] }' text > spk2utt
 ```
