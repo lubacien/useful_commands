@@ -50,6 +50,11 @@ sed 's/./& /g' $yourfile
 ```
 
 # The awk tricks
+
+this will change a text file into a spk2utt file in kaldi:
+gawk 'BEGIN{split($1,a,"_"); spk = a[1]; prev= a[1]} {split($1,b,"_"); if (b[1] != spk) {printf prev " "; for (i in arr) {printf i " "}; print " "; delete arr; spk= b[1]; } arr[$1];prev=b[1] }' text > spk2utt
+
+
 ```bash
 (almost) change language model to upper case, (but actually still need to change 2-grams and 3-grams)
 cat LM.arpa | awk 'NR<=11{print $0; next}NR>11{print toupper($0)}' > LM_UC.arpa
