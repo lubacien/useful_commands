@@ -50,6 +50,10 @@ sed 's/./& /g' $yourfile
 ```
 
 # The awk tricks
+this will change a transcriptions file per segments to per conv ids:
+```bash
+awk '{split($1,a,"_"); q=a[1]; $1=""; sentence[q] = sentence[q] $0 }END{for (i in sentence) { print i " "sentence[i]}}' yes_transcript > yes_transcript_convid
+```
 
 this will change a text file into a spk2utt file in kaldi: (but remove the first line after)
 ```bash
