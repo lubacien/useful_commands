@@ -17,6 +17,11 @@ cat $yourfile | while read line; do "This is your current line: $line"; done
 ```
 
 # The sed tricks
+from a normal WER file to a nonzeor wer file:
+```bash
+grep -2 " 0.00 %" FT_20210728_u2pp_conformer_exp_lr-3/bmw_of_bayside/data16k/test_avg_10.pt_attention_rescoring_u2pp/wer -n | sed -n 's/^\([0-9]\{1,\}\).*/\1d/p' | sed -f - FT_20210728_u2pp_conformer_exp_lr-3/bmw_of_bayside/data16k/test_avg_10.pt_attention_rescoring_u2pp/wer > nonzerower_transcript
+```
+
 ```bash
 # Replace windows newlines by unix newlines
 sed 's/^M$//' $yourfile
