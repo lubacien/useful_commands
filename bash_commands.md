@@ -55,6 +55,11 @@ sed 's/./& /g' $yourfile
 ```
 
 # The awk tricks
+From a text file to a list of the words it contains and number of appearances:
+```bash
+awk '{split($0, a); i = 0; for (l in a)  {if ( i == 1 ) {print $l}; i = 1} ;}' data/bmw_of_bayside/data16k/test/text_fortest | sort | uniq -c | sort -k2n -r | awk '{printf("%s\t%s\n",$2,$1)}' 
+```
+
 this will change a transcriptions file per segments to per conv ids:
 ```bash
 awk '{split($1,a,"_"); q=a[1]; $1=""; sentence[q] = sentence[q] $0 }END{for (i in sentence) { print i " "sentence[i]}}' yes_transcript > yes_transcript_convid
