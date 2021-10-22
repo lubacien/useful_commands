@@ -59,6 +59,11 @@ From a text file to a list of the words it contains and number of appearances:
 ```bash
 awk '{split($0, a); i = 0; for (l in a)  {if ( i == 1 ) {print $l}; i = 1} ;}' data/bmw_of_bayside/data16k/test/text_fortest | sort | uniq -c | sort -k2n -r | awk '{printf("%s\t%s\n",$2,$1)}' 
 ```
+From this list of words to the cluster file for wenet's compute-wer
+```bash
+awk 'NR<11{printf "<%s> \n%s \n</%s> \n", $1, $1, $1 }' stats/words_test_cca > wercluster
+```
+
 
 this will change a transcriptions file per segments to per conv ids:
 ```bash
