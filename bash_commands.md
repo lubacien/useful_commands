@@ -1,6 +1,11 @@
 Here are a few bash tricks I needed to write down at some point as I don't use
 them enough to remember them. After some practice, most are obvious.
 
+# GPU flush
+```bash
+kill -9 $(fuser -v /dev/nvidia* | awk '{print $0}')
+```
+
 # Basic stuff
 For loop syntax
 ```bash
