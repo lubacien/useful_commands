@@ -9,9 +9,6 @@ kill -9 $(fuser -v /dev/nvidia* | awk '{print $0}')
 # Basic stuff
 For loop syntax
 ```bash
-# On numbers, characters, strings, etc.
-for i in a b c d 5 3 g French English; do echo $i; done
-
 # Can even be done on a digit interval:
 for i in {1..10}; do echo $i; done
 ```
@@ -28,35 +25,18 @@ grep -2 " 0.00 %" FT_20210728_u2pp_conformer_exp_lr-3/bmw_of_bayside/data16k/tes
 ```
 
 ```bash
-# Replace windows newlines by unix newlines
-sed 's/^M$//' $yourfile
-
-# Replace newline by a space
-sed ':a;N;$!ba;s/\n/ /g' $yourfile
-
 # Merge multiple spaces into one space
 sed 's/ \+ / /g' $yourfile
 
 # Extract the string between "STRING1" and "STRING2"
 sed '/STRING1/!d;s//&\n/;s/.*\n//;:a;/STRING2/bb;$!{n;ba};:b;s//\n&/;P;D' $yourfile
 
-# Use variables inside sed command
-sed -i "s/$var1/ZZ/g" $yourfile
-
-# Add string at the end of a line containing pattern at the beginning of the line
-sed '/^pattern/ s/$/ string/' $yourfile
-
 # Replace string1 by string2 only on line 5
 sed -e "5s/string1/string2/" $yourfile
-
-# Remove empty lines (with spaces, tabs, or truly empty)
-sed '/^\s*$/d' $yourfile
 
 # Replace the first space by a tab on each line
 sed 's/ /'$'\t''/' $yourfile
 
-# Add a space between each character (also see awk version below)
-sed 's/./& /g' $yourfile
 ```
 
 # The awk tricks
@@ -68,7 +48,6 @@ From this list of words to the cluster file for wenet's compute-wer
 ```bash
 awk 'NR<11{printf "<%s> \n%s \n</%s> \n", $1, $1, $1 }' stats/words_test_cca > wercluster
 ```
-
 
 this will change a transcriptions file per segments to per conv ids:
 ```bash
@@ -84,14 +63,8 @@ gawk 'BEGIN{split($1,a,"_"); spk = a[1]; prev= a[1]} {split($1,b,"_"); if (b[1] 
 (almost) change language model to upper case, (but actually still need to change 2-grams and 3-grams)
 cat LM.arpa | awk 'NR<=11{print $0; next}NR>11{print toupper($0)}' > LM_UC.arpa
 
-# Sum the number of one column (here the first one) in a file
-awk '{ sum+=$1} END {print sum}' $yourfile
-
 # To get all the lines between pattern1 and pattern2 (included) in a file
 awk '/pattern1/ { show=1 } show; /pattern2/ { show=0 }' $yourfile
-
-# Print only lines with less than X characters
-awk 'length < X' $yourfile
 
 # Print columns between 3 and 12 (included)
 awk '{for(i=3;i<=12;++i)print $i}' $yourfile
@@ -151,9 +124,6 @@ grep [options] -- "$pattern" $yourfile
 ```bash
 # Convert from raw to wav (48k)
 sox -r 48000 -e signed -b 16 -c 1 $yourfile $youroutput
-
-# Downsample with sox (to 16k)
-sox -G $yourfile -r 16000 $youroutput
 
 # Get info on audio file
 soxi $audiofile
