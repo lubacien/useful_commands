@@ -171,7 +171,7 @@ cat archive.zip.* > archive.zip && unzip archive.zip
 # Docker related
 ```bash
 #to start container from imagename as local user (so that files written to volume are not protected)
-docker run -it -u $USER`:`id -g $USER` imagename bash
+docker run -it --user $(id -u):$(id -g) imagename bash
 
 # then if it is exited without an error:
 docker start containernum
