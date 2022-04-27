@@ -21,7 +21,7 @@ cat $yourfile | while read line; do "This is your current line: $line"; done
 # The sed tricks
 from a normal WER file to a nonzeor wer file:
 ```bash
-grep -2 " 0.00 %" FT_20210728_u2pp_conformer_exp_lr-3/bmw_of_bayside/data16k/test_avg_10.pt_attention_rescoring_u2pp/wer -n | sed -n 's/^\([0-9]\{1,\}\).*/\1d/p' | sed -f - FT_20210728_u2pp_conformer_exp_lr-3/bmw_of_bayside/data16k/test_avg_10.pt_attention_rescoring_u2pp/wer > nonzerower_transcript
+grep -2 " 0.00 %" wer -n | sed -n 's/^\([0-9]\{1,\}\).*/\1d/p' | sed -f - wer > nonzerower_transcript
 ```
 
 ```bash
@@ -42,7 +42,7 @@ sed 's/ /'$'\t''/' $yourfile
 # The awk tricks
 From a text file to a list of the words it contains and number of appearances:
 ```bash
-awk '{split($0, a); i = 0; for (l in a)  {if ( i == 1 ) {print $l}; i = 1} ;}' data/bmw_of_bayside/data16k/test/text_fortest | sort | uniq -c | sort -k2n -r | awk '{printf("%s\t%s\n",$2,$1)}' 
+awk '{split($0, a); i = 0; for (l in a)  {if ( i == 1 ) {print $l}; i = 1} ;}' text_fortest | sort | uniq -c | sort -k2n -r | awk '{printf("%s\t%s\n",$2,$1)}' 
 ```
 From this list of words to the cluster file for wenet's compute-wer
 ```bash
